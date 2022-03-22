@@ -16,18 +16,27 @@ function Student(name, age, cursosAprobados) {
     this.age = age;
     this.cursosAprobados = cursosAprobados;
 }
+
+//Método para agregar un curso
+
 Student.prototype.aprobarCurso = function (nuevoCurso) {
     this.cursosAprobados.push(nuevoCurso);
 }
+
 // instancia de prototipos
 const juanita = new Student(
     "Juanita Alejandra",
     15,
     [
         "Curso introducción a los videojuegos",
-        "curso de cración de personaje"
+        "curso de creación de personaje"
     ],
 );
+
+// A la instancia de la función Student se le agrega un curso aprobado.
+
+juanita.aprobarCurso("Curso de gestión del tiempo");
+
 // Prototipos con la sintaxis de clases
 class Student2 {
     constructor({
