@@ -23,6 +23,39 @@ class Stundent {
     }
 }
 
+class FreeStudent extends Stundent {
+    constructor(props) {
+        super(props);
+    }
+    approveCourse(newCourse) {
+        if (newCourse.isFree) {
+            this.approvedCourses.push(newCourse);
+        } else {
+            console.log("Lo sentimos, " + this.name + ", solo puedes tomar cursos abiertos");
+        }
+    }
+}
+class BasicStudent extends Stundent {
+    constructor(props) {
+        super(props);
+    }
+    approveCourse(newCourse) {
+        if (newCourse.lang !== "english") {
+            this.approvedCourses.push(newCourse);
+        } else {
+            console.log("Lo sentimos, " + this.name + ", no puedes tomar cursos en ingles");
+        }
+    }
+}
+class ExpertStudent extends Stundent {
+    constructor(props) {
+        super(props);
+    }
+    approveCourse(newCourse) {
+        this.approvedCourses.push(newCourse);
+    }
+}
+
 // RETO
 class LearningPath {
     constructor({
@@ -40,15 +73,18 @@ class LearningPath {
 class Course {
     constructor({
         name,
-        classes = []
+        classes = [],
+        isFree = false,
+        lang = "spanish"
     }) {
         this._name = name;
         this.classes = classes;
+        this.isFree = isFree;
+        this.lang = lang;
     }
     get name() {
         return this._name;
     }
-
     set name(newName) {
         if (newName === "Curso Malito de Programación Básica") {
             console.log("Nombre no admitido, por favor elija otro");
@@ -60,7 +96,7 @@ class Course {
 
 
 
-export class PlatziClass {
+class PlatziClass {
     constructor({
         name,
         videoID
@@ -84,7 +120,6 @@ function videoStop(id) {
     console.log("Pausamos la url " + urlSecreta);
 }
 
-
 class Classes {
     constructor({
         name,
@@ -99,11 +134,11 @@ class Classes {
     set name(newName) {
         this._name = newName;
     }
-
 }
 
 const cursoProgBasica = new Course({
     name: "Curso Gratis de Programación Básica",
+    isFree: true,
 });
 const cursoPracJs = new Course({
     name: "Curso de Práctico JavaScript"
@@ -111,8 +146,10 @@ const cursoPracJs = new Course({
 const cursoDeFrontDev = new Course({
     name: "Curso de FrontEnd Developer"
 });
+
 const cursBasicJs = new Course({
-    name: "Curso de JavaScript Básico"
+    name: "Curso de JavaScript Básico",
+    lang: "english"
 });
 
 const cursoPython = new Course({
@@ -147,23 +184,32 @@ const escuelaData = new LearningPath({
     addCourse: []
 })
 
-const Belen = new Stundent({
+const belen = new ExpertStudent({
     name: "Belen",
     email: "belencita@example.com",
     username: "Belencita",
     twitter: "BelenFigue_",
-    LearningPath: [
+    learningPath: [
         escuelaData
     ]
 })
 
-const Ana = new Stundent({
+const ana = new BasicStudent({
     name: "Ana",
     email: "Ana@example.com",
     username: "Anita_Denis",
     instagram: "Ana_BlueEyes",
-    LearningPath: {
+    learningPath: {
         escuelaJs,
     },
-    approvedCourses: []
+})
+
+const Freddy = new FreeStudent({
+    name: "Freddy",
+    email: "Freddy@example.com",
+    username: "Fred",
+    instagram: "Freddy_",
+    learningPath: {
+        escuelaData,
+    },
 })
