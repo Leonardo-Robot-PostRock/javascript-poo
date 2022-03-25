@@ -1,3 +1,22 @@
+class Comment {
+    constructor({
+        content,
+        studentName,
+        studentRole = "estudiante",
+
+    }) {
+        this.content = content;
+        this.studentName = studentName;
+        this.studentRole = studentRole;
+        this.likes = 0;
+    }
+    publicar() {
+        console.log(this.studentName + "(" + this.studentRole + ")");
+        console.log(this.likes + " likes");
+        console.log(this.content);
+    }
+}
+
 class Stundent {
     constructor({
         name,
@@ -21,8 +40,15 @@ class Stundent {
         this.approvedCourses = approvedCourses;
         this.learningPath = learningPath;
     }
-}
 
+    publicarComentario(commentContent) {
+        const comment = new Comment({
+            content: commentContent,
+            studentName: this.name,
+        });
+        comment.publicar();
+    }
+}
 class FreeStudent extends Stundent {
     constructor(props) {
         super(props);
@@ -53,6 +79,22 @@ class ExpertStudent extends Stundent {
     }
     approveCourse(newCourse) {
         this.approvedCourses.push(newCourse);
+    }
+}
+class TeacherStudent extends Stundent {
+    constructor(props) {
+        super(props);
+    }
+    approveCourse(newCourse) {
+        this.approvedCourses.push(newCourse);
+    }
+    publicarComentario(commentContent) {
+        const comment = new Comment({
+            content: commentContent,
+            studentName: this.name,
+            studentRole: "profesor",
+        });
+        comment.publicar();
     }
 }
 
@@ -204,12 +246,19 @@ const ana = new BasicStudent({
     },
 })
 
-const Freddy = new FreeStudent({
-    name: "Freddy",
-    email: "Freddy@example.com",
-    username: "Fred",
-    instagram: "Freddy_",
+const juan = new FreeStudent({
+    name: "Juan",
+    email: "Juan@example.com",
+    username: "Juanito_Perez",
+    twitter: "Juanito_Perez",
     learningPath: {
-        escuelaData,
+        escuelaJs,
     },
+})
+
+const freddy = new TeacherStudent({
+    name: "Freddy Vega",
+    email: "Freddy@example.com",
+    username: "Freddier",
+    instagram: "freddiervega",
 })
